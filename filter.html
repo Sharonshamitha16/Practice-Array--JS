@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+     const Apicall = async ()=>{
+    try{let  fetchedapi = await fetch('https://dummyjson.com/products')
+    let productsfetched = await fetchedapi.json();
+    let discount_items =[]
+    let nondiscount_items =[]
+
+    console.log(productsfetched.products)
+    let allHaveDiscount = productsfetched.products.every(discount_check => {
+            // Push to discount_items if it has a discount
+            if (discount_check.discountPercentage) {
+                discount_items.push(discount_check);
+                return true;
+            } else {
+                nondiscount_items.push(discount_check);
+                return false;
+            }
+        });
+
+        // Output the result of .every()
+        console.log('All products have discount:', allHaveDiscount);
+
+        // Log the collected arrays
+        console.log('Items with discount:', discount_items);
+        console.log('Items without discount:', nondiscount_items);}
+    catch(error){
+      console.log('error happened....');
+        
+    }
+ }
+ Apicall();
+</script>
+
+</html>
